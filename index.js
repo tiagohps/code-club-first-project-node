@@ -73,9 +73,14 @@ app.listen(port, () => {
 */
 
 //PROJETO NODE
-import express from 'express';
-import {v4} from 'uuid';
-import cors from 'cors'
+//import express from 'express';
+//mport {v4} from 'uuid';
+//import cors from 'cors'
+//const {request , response} = require('express')
+const express = require('express')
+const uuid = require('uuid')
+const cors = require('cors')
+
 
 
 const port = 3001;
@@ -92,9 +97,9 @@ app.use(cors());
 
 const  users = [];
 const checkUserId = (request, response, next) => {
-    const {id} = request.params;
+    const { id } = request.params;
    
-    const  index = users.findIndex( user => user.id === id);
+    const  index = users.findIndex( (user) => user.id === id);
 
     if( index < 0){
         return response.status(404).json({error: "Not found"});
@@ -114,7 +119,7 @@ app.get('/users', (request, response) => {
 
 app.post('/users', (request, response) => {
     const {name, age} = request.body; 
-    const user = { id:v4(), name, age};
+    const user = { id:uuid.v4(), name, age};
 
     users.push(user);
     return response.status(201).json(user);
